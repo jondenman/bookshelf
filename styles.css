@@ -1,0 +1,97 @@
+.container {
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+    justify-content: center;
+}
+
+.header {
+    grid-row: 1;
+    grid-column: 1 / 5;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.content {
+    background-color: #ced8e6;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fit, 1fr);
+    gap: 15px;
+    padding: 10px;
+}
+
+.content .book {
+    background-color: #efe9e9;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    height: 210px;
+}
+
+.book button {
+    float: right;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    width: 80%; /* Could be more or less, depending on screen size */
+    /* display: flex; */
+}
+
+.form-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(82, 35, 75);
+    height: 100vh;
+    padding: 25px;
+    color:rgb(204, 179, 201);
+    gap: 50px;
+}
+
+.form-header {
+    flex: 1;
+    box-shadow: 1px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.form-body {
+    flex: 4;
+    display: flex;
+}
+
+.input-row{
+    display: flex;
+    gap: 5px;
+}
+
+.input {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.form-footer {
+    flex: 1;
+}
