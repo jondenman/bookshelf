@@ -33,7 +33,7 @@
     height: 210px;
 }
 
-.book button {
+.book .delete {
     float: right;
 }
 
@@ -94,4 +94,13 @@
 
 .form-footer {
     flex: 1;
+}
+
+.read {
+    background-color: rgb(145, 227, 145);
+    float: left;
+}
+
+.unread {
+    background-color: red;
 }

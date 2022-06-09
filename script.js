@@ -17,16 +17,12 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(book);
 }
 
-addBookToLibrary('The Hobbit', 'J.R.R Tolkein', 295, 'not read');
-addBookToLibrary('Jobs', 'Walter', 545, 'not read');
-addBookToLibrary('Jobs', 'Walter', 545, 'not read');
-addBookToLibrary('Jobs', 'Walter', 545, 'not read');
-addBookToLibrary('Jobs', 'Walter', 545, 'not read');
+addBookToLibrary('The Hobbit', 'J.R.R Tolkein', 295, true);
+addBookToLibrary('Jobs', 'Walter', 545, false);
 
 let shelf = document.getElementById('shelf');
 
 myLibrary.forEach(element => {
-    console.log(element.info());
     renderBook(element.title, element.author, element.pages, element.read, myLibrary.indexOf(element));
 });
 
@@ -43,12 +39,21 @@ function renderBook(title, author, pages, read, idx) {
     let pagesDiv = document.createElement('p');
     pagesDiv.textContent = pages;
 
-    let readDiv = document.createElement('p');
-    readDiv.textContent = read;
-
+    let readDiv = document.createElement('button');
+    readDiv.classList.add('read');
+    readDiv.addEventListener('click', onReadClick);
+    
+    if (read) {
+        readDiv.textContent = 'Read';
+    } else {
+        readDiv.textContent = 'Not Read';
+        readDiv.classList.add('unread');
+    }
+    
     let deleteDiv = document.createElement('button');
     deleteDiv.textContent = 'x';
-    deleteDiv.id = 'delete';
+    deleteDiv.classList.add('delete');
+    deleteDiv.addEventListener('click', onDeleteClick);
 
     bookDiv.appendChild(titleDiv);
     bookDiv.appendChild(authorDiv);
@@ -70,19 +75,18 @@ btn.onclick = () => {
 
 let form = document.querySelector('form');
 let submitButton = document.querySelector('#formSubmit');
-console.log(form);
 
 submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     var title = form[0].value;
     var author = form[1].value;
     var pages = form[2].value;
-    var read = form[3].value;
+    var read = form[3].checked;
     
     var idx = myLibrary.length;
 
-    addBookToLibrary(title, author, pages, 'not read');
-    renderBook(title, author, pages, 'not read', idx);
+    addBookToLibrary(title, author, pages, read);
+    renderBook(title, author, pages, read, idx);
     
     modal.style.display = 'none';
 });
@@ -90,13 +94,21 @@ submitButton.addEventListener('click', (event) => {
 function onDeleteClick(e) {
     var bookToDelete = e.target.parentElement;
     var idxToDelete = bookToDelete.getAttribute('data-idx');
-    myLibrary.shift(idxToDelete);
 
     shelf.removeChild(bookToDelete);
-    console.log(myLibrary);
 }
 
-let bookDeletes = document.querySelectorAll('.book button');
-bookDeletes.forEach(element => element.addEventListener('click', onDeleteClick));
-
-console.log(myLibrary.length);
+function onReadClick(e) {
+    var bookDiv = e.target.parentElement;
+    var bookIdx = bookDiv.getAttribute('data-idx');
+    var book = myLibrary[bookIdx];
+    if (book.read) {
+        book.read = false;
+        e.target.classList.add('unread');
+        e.target.textContent = 'Not Read';
+    } else {
+        book.read = true;
+        e.target.classList.remove('unread');
+        e.target.textContent = 'Read';
+    }
+}
